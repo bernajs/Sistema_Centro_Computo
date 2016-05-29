@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Sistema_cc.exe" version="1.0.0.2" publicKeyToken="35227d8cc8f397c2" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Sistema_cc" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Sistema_cc.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          Opciones del manifiesto de Control de cuentas de usuario
+          Si desea cambiar el nivel de Control de cuentas de usuario de Windows, reemplace el 
+          nodo requestedExecutionLevel por alguno de los siguientes.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         Si desea usar la virtualización de archivos y del Registro para la 
+         compatibilidad con versiones anteriores, elimine el nodo requestedExecutionLevel.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="MySql.Data" version="6.9.8.0" publicKeyToken="C5687FC88969C44D" language="neutral" processorArchitecture="msil" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema_cc.exe" size="418816">
+      <assemblyIdentity name="Sistema_cc" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tp097xfymDTP0WMAbBZ4xCtUQx9mzh9a3Uyp6VRfR90=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Sistema_cc.exe.config" size="182">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>PbQiHFOih9uz3RPvvsStiPKcsu3PE8/gyCn2QGUyyf4=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DESKTOP-UPB1IVL\luisg" issuerKeyHash="44f470e025922fdb9639c89e86259d8d9c19e71b" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>6F3jiZi4hyAxTiu0bkqaWVaWD6u5HZx/3CT8mE/3uZQ=</DigestValue></Reference></SignedInfo><SignatureValue>VLhIhhBYaG7vQK9DRwwPdcnykTGRADNIhqj3sW6HgN4q0FSxWi18WNQFQkiYntOWuSLAnNWuVweCNm0S0PWDMxuvAeXmZBcitgIDyPIuvy5/5JjASFAzkdR0no9B+N8pXhxPDEbDx26K5ok5CQo0OsZGHvsZ2feQeElLhorUF3E=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>xpnP80PGMlhkxlu6OvkftCBfnV+lDX+Que5fy0Qq0GfAknFji+oqWrgijp9BGwlxXQt1/xjuoHCksEsYGuUgc+bbIkGIL8JK9iAunViKReSg4sLr+9FLGWqCvYePiKQC1T2ksYsP82mIriTyeyFZ6A0Yge3214NBUZKnQoV/kO8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="94b9f74f98fc24dc7f9c1db9ab0f9656599a4a6eb42b4e312087b89889e35de8" Description="" Url=""><as:assemblyIdentity name="Sistema_cc.exe" version="1.0.0.2" publicKeyToken="35227d8cc8f397c2" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DESKTOP-UPB1IVL\luisg</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>qOY4dLq0UzIF0SCakglNNur4FKhag8KzUbhWDpPraGE=</DigestValue></Reference></SignedInfo><SignatureValue>n4nIbP38hM+O9x3bd8SFAZmzAphALY0SnmO+RLyeZhzohwGrNlTwBRjSy+OsM/eIjtn2jdRRfl/qy7QaHb9A1izoHuxHlJ3QM7hoeOHUgRutxk9aN+WgGrw8e8+B2Goggpay19v+RqumQQkZZjVKdsgEThZngfh2iOcvxMOAD+c=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>xpnP80PGMlhkxlu6OvkftCBfnV+lDX+Que5fy0Qq0GfAknFji+oqWrgijp9BGwlxXQt1/xjuoHCksEsYGuUgc+bbIkGIL8JK9iAunViKReSg4sLr+9FLGWqCvYePiKQC1T2ksYsP82mIriTyeyFZ6A0Yge3214NBUZKnQoV/kO8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB7TCCAVagAwIBAgIQTCiyNrwzcJFAhbZiCRL23zANBgkqhkiG9w0BAQsFADA1MTMwMQYDVQQDHioARABFAFMASwBUAE8AUAAtAFUAUABCADEASQBWAEwAXABsAHUAaQBzAGcwHhcNMTYwNTEzMTYyMTA0WhcNMTcwNTEzMjIyMTA0WjA1MTMwMQYDVQQDHioARABFAFMASwBUAE8AUAAtAFUAUABCADEASQBWAEwAXABsAHUAaQBzAGcwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMaZz/NDxjJYZMZbujr5H7QgX51fpQ1/kLnuX8tEKtBnwJJxY4vqKlq4Io6fQRsJcV0Ldf8Y7qBwpLBLGBrlIHPm2yJBiC/CSvYgLp1YikXkoOLC6/vRSxlqgr2Hj4ikAtU9pLGLD/NpiK4k8nshWegNGIHt9teDQVGSp0KFf5DvAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAgkh1jv+Xv0qnFVaHFEo4g1cRyqpx5PbB+Kh5Sp2kq6vPNaK6VKKZ6+GMrSo5rzStJkvYZM5qPFAz9Ci8A9Qc0M0ovHmmH2QSK85BLLfKL1QZL5mJTsR5OYNhVyU//BtyFv4uKRe/57jYalh5kXDmdQoBAHA43/pn420RRfBiw9A=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

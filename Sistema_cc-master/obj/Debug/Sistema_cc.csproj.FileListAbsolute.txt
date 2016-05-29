@@ -1,0 +1,25 @@
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\bin\Debug\Sistema_cc.exe.config
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\bin\Debug\Sistema_cc.exe
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\bin\Debug\Sistema_cc.pdb
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.csprojResolveAssemblyReference.cache
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.Properties.Resources.resources
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.csproj.GenerateResource.Cache
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.exe
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.pdb
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.Apartado.resources
+c:\users\usuario\documents\visual studio 2012\Projects\Sistema_cc\Sistema_cc\obj\Debug\Sistema_cc.Inicio.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_cc.exe.config
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.exe
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.pdb
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_cc.exe
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_cc.pdb
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.csprojResolveAssemblyReference.cache
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.Apartado.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.Inicio.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.Properties.Resources.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.csproj.GenerateResource.Cache
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.formFinalizar.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_cc.exe.manifest
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_cc.application
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.exe.manifest
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.application
