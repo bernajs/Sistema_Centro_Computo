@@ -15,16 +15,36 @@ namespace Sistema_cc
 {
     public partial class Administrador : Form
     {
-        Apartado ap = new Apartado("", "", "", 0);
+        MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
         MySqlConnection conn;
         MySqlCommand cmd;
-        String matricula, nombre, apaterno, amaterno, sexo, cvcarrera;
-        int carrera;
+        String matricula, nombre, apaterno, amaterno, sexo, cvcarrera, carrera;
+        String fecha;
+        int carreraIndex;
+
+        public void conexion()
+        {
+            //Hace la conexion a la db
+            b.Server = "localhost";
+            b.UserID = "root";
+            b.Password = "root";
+            b.Database = "sistemacc";
+            try
+            {
+                conn = new MySqlConnection(b.ToString());
+                conn.Open();
+                cmd = conn.CreateCommand();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         
         public Administrador()
         {
             InitializeComponent();
-            ap.conexion();
+            conexion();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -135,29 +155,42 @@ namespace Sistema_cc
             apaterno = etPaterno.Text;
             amaterno = etMaterno.Text;
             nombre = etNombre.Text;
-            carrera = etCarrera.SelectedIndex;
+            carreraIndex = etCarrera.SelectedIndex;
             sexo = etSexo.Text;
 
-            if (carrera==0)
+            if (carreraIndex==0)
             {
+                carrera = "Ingenieria en Gestion Empresarial";
                 cvcarrera = "IGEM";
             }
-            else if (carrera==1)
+            else if (carreraIndex==1)
             {
+                carrera = "Ingenieria Industrial";
                 cvcarrera = "IIND";
             }
-            else if (carrera==2)
+            else if (carreraIndex==2)
             {
+                carrera = "Ingenieria en Sistemas Computacionales";
                 cvcarrera = "ISIC";
             }
-            else if (carrera==3)
+            else if (carreraIndex==3)
             {
+                carrera = "Ingenieria en Innovacion Agricola Sustentable";
                 cvcarrera = "IIAS";
             }
             //
             MessageBox.Show(string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera));
-            cmd.CommandText = string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera);
-            cmd.ExecuteNonQuery();
+
+            try
+            {
+                cmd.CommandText = string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Alumno agregado correctamente");
+            }
+            catch
+            {
+                MessageBox.Show("Datos incorrectos, por favor vuelva a intentarlo");
+            }
         }
 
         private void btnFecha_Click(object sender, EventArgs e)
@@ -181,7 +214,11 @@ namespace Sistema_cc
 
         private void btnAceptarF_Click(object sender, EventArgs e)
         {
-
+            fecha = monthCalendar1.SelectionStart.ToString("yyyy-MM-dd");
+            MessageBox.Show(fecha);
+            //MessageBox.Show(string.Format("INSERT INTO scc_inhabiles VALUES('{0}', '{1}');", fecha, "T"));
+            cmd.CommandText = string.Format("INSERT INTO scc_inhabiles VALUES('{0}', '{1}');", fecha, "T");
+            cmd.ExecuteNonQuery();
         }
 
         private void btnAtrasF_Click(object sender, EventArgs e)

@@ -135,7 +135,14 @@ namespace Sistema_cc
 
                 etFecha.Text = dateTimePicker1.Value.ToShortDateString();
                 comboBox1.Enabled = true;
-                pictureBox1.Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
+                try
+                {
+                    pictureBox1.Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("No se encontró su fotografiía, por favor pase a servicios escolares para que se la tomen");
+                }
                 encontrado = 1;
             }
             r.Close();

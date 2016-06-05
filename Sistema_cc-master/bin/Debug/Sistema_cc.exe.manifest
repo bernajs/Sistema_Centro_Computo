@@ -47,14 +47,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema_cc.exe" size="427008">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Sistema_cc.exe" size="428544">
       <assemblyIdentity name="Sistema_cc" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>voTQCFs6Gw+T+N6993QQnN0aD90YurOYLH6sJCGkCMc=</dsig:DigestValue>
+        <dsig:DigestValue>uuT8kAOWARHg1d2l+ApxmO9igZF1qDXwqBKfdsdUhq4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
