@@ -393,6 +393,7 @@
             this.pc16.Location = new System.Drawing.Point(839, 146);
             this.pc16.Name = "pc16";
             this.pc16.Size = new System.Drawing.Size(100, 50);
+            this.pc16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc16.TabIndex = 30;
             this.pc16.TabStop = false;
             this.pc16.Click += new System.EventHandler(this.pc16_Click);
@@ -403,6 +404,7 @@
             this.pc15.Location = new System.Drawing.Point(726, 146);
             this.pc15.Name = "pc15";
             this.pc15.Size = new System.Drawing.Size(100, 50);
+            this.pc15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc15.TabIndex = 29;
             this.pc15.TabStop = false;
             this.pc15.Click += new System.EventHandler(this.pc15_Click);
@@ -413,6 +415,7 @@
             this.pc14.Location = new System.Drawing.Point(608, 146);
             this.pc14.Name = "pc14";
             this.pc14.Size = new System.Drawing.Size(100, 50);
+            this.pc14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc14.TabIndex = 28;
             this.pc14.TabStop = false;
             this.pc14.Click += new System.EventHandler(this.pc14_Click);
@@ -423,6 +426,7 @@
             this.pc13.Location = new System.Drawing.Point(493, 146);
             this.pc13.Name = "pc13";
             this.pc13.Size = new System.Drawing.Size(100, 50);
+            this.pc13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc13.TabIndex = 27;
             this.pc13.TabStop = false;
             this.pc13.Click += new System.EventHandler(this.pc13_Click);
@@ -491,6 +495,7 @@
             this.pc12.Location = new System.Drawing.Point(375, 146);
             this.pc12.Name = "pc12";
             this.pc12.Size = new System.Drawing.Size(100, 50);
+            this.pc12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc12.TabIndex = 20;
             this.pc12.TabStop = false;
             this.pc12.Click += new System.EventHandler(this.pc12_Click);
@@ -501,6 +506,7 @@
             this.pc11.Location = new System.Drawing.Point(258, 146);
             this.pc11.Name = "pc11";
             this.pc11.Size = new System.Drawing.Size(100, 50);
+            this.pc11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc11.TabIndex = 19;
             this.pc11.TabStop = false;
             this.pc11.Click += new System.EventHandler(this.pc11_Click);
@@ -511,6 +517,7 @@
             this.pc10.Location = new System.Drawing.Point(140, 146);
             this.pc10.Name = "pc10";
             this.pc10.Size = new System.Drawing.Size(100, 50);
+            this.pc10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc10.TabIndex = 18;
             this.pc10.TabStop = false;
             this.pc10.Click += new System.EventHandler(this.pictureBox11_Click);
@@ -521,6 +528,7 @@
             this.pc9.Location = new System.Drawing.Point(22, 146);
             this.pc9.Name = "pc9";
             this.pc9.Size = new System.Drawing.Size(100, 50);
+            this.pc9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc9.TabIndex = 17;
             this.pc9.TabStop = false;
             this.pc9.Click += new System.EventHandler(this.pictureBox10_Click);
@@ -531,6 +539,7 @@
             this.pc8.Location = new System.Drawing.Point(839, 56);
             this.pc8.Name = "pc8";
             this.pc8.Size = new System.Drawing.Size(100, 50);
+            this.pc8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc8.TabIndex = 16;
             this.pc8.TabStop = false;
             this.pc8.Click += new System.EventHandler(this.pc8_Click);
@@ -541,6 +550,7 @@
             this.pc7.Location = new System.Drawing.Point(726, 56);
             this.pc7.Name = "pc7";
             this.pc7.Size = new System.Drawing.Size(100, 50);
+            this.pc7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc7.TabIndex = 15;
             this.pc7.TabStop = false;
             this.pc7.Click += new System.EventHandler(this.pc7_Click);
@@ -609,6 +619,7 @@
             this.pc6.Location = new System.Drawing.Point(608, 56);
             this.pc6.Name = "pc6";
             this.pc6.Size = new System.Drawing.Size(100, 50);
+            this.pc6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc6.TabIndex = 8;
             this.pc6.TabStop = false;
             this.pc6.Click += new System.EventHandler(this.pc6_Click);
@@ -619,6 +630,7 @@
             this.pc5.Location = new System.Drawing.Point(493, 56);
             this.pc5.Name = "pc5";
             this.pc5.Size = new System.Drawing.Size(100, 50);
+            this.pc5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc5.TabIndex = 7;
             this.pc5.TabStop = false;
             this.pc5.Click += new System.EventHandler(this.pc5_Click);
@@ -629,6 +641,7 @@
             this.pc4.Location = new System.Drawing.Point(375, 56);
             this.pc4.Name = "pc4";
             this.pc4.Size = new System.Drawing.Size(100, 50);
+            this.pc4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc4.TabIndex = 6;
             this.pc4.TabStop = false;
             this.pc4.Click += new System.EventHandler(this.pc4_Click);
@@ -639,6 +652,7 @@
             this.pc3.Location = new System.Drawing.Point(258, 56);
             this.pc3.Name = "pc3";
             this.pc3.Size = new System.Drawing.Size(100, 50);
+            this.pc3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc3.TabIndex = 5;
             this.pc3.TabStop = false;
             this.pc3.Click += new System.EventHandler(this.pc3_Click);
@@ -649,6 +663,7 @@
             this.pc2.Location = new System.Drawing.Point(140, 56);
             this.pc2.Name = "pc2";
             this.pc2.Size = new System.Drawing.Size(100, 50);
+            this.pc2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc2.TabIndex = 4;
             this.pc2.TabStop = false;
             this.pc2.Click += new System.EventHandler(this.pictureBox3_Click);
@@ -659,6 +674,7 @@
             this.pc1.Location = new System.Drawing.Point(22, 56);
             this.pc1.Name = "pc1";
             this.pc1.Size = new System.Drawing.Size(100, 50);
+            this.pc1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pc1.TabIndex = 3;
             this.pc1.TabStop = false;
             this.pc1.Click += new System.EventHandler(this.pictureBox2_Click);
@@ -682,8 +698,9 @@
             "6 pm"});
             this.comboBox1.Location = new System.Drawing.Point(22, 29);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(96, 21);
+            this.comboBox1.Size = new System.Drawing.Size(123, 21);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.Text = "Seleccione horario";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label8
@@ -786,6 +803,7 @@
             this.pcc16.Location = new System.Drawing.Point(839, 146);
             this.pcc16.Name = "pcc16";
             this.pcc16.Size = new System.Drawing.Size(100, 50);
+            this.pcc16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc16.TabIndex = 64;
             this.pcc16.TabStop = false;
             this.pcc16.Click += new System.EventHandler(this.pcc16_Click);
@@ -796,6 +814,7 @@
             this.pcc15.Location = new System.Drawing.Point(726, 146);
             this.pcc15.Name = "pcc15";
             this.pcc15.Size = new System.Drawing.Size(100, 50);
+            this.pcc15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc15.TabIndex = 63;
             this.pcc15.TabStop = false;
             this.pcc15.Click += new System.EventHandler(this.pcc15_Click);
@@ -806,6 +825,7 @@
             this.pcc14.Location = new System.Drawing.Point(608, 146);
             this.pcc14.Name = "pcc14";
             this.pcc14.Size = new System.Drawing.Size(100, 50);
+            this.pcc14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc14.TabIndex = 62;
             this.pcc14.TabStop = false;
             this.pcc14.Click += new System.EventHandler(this.pcc14_Click);
@@ -816,6 +836,7 @@
             this.pcc13.Location = new System.Drawing.Point(493, 146);
             this.pcc13.Name = "pcc13";
             this.pcc13.Size = new System.Drawing.Size(100, 50);
+            this.pcc13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc13.TabIndex = 61;
             this.pcc13.TabStop = false;
             this.pcc13.Click += new System.EventHandler(this.pcc13_Click);
@@ -884,6 +905,7 @@
             this.pcc12.Location = new System.Drawing.Point(375, 146);
             this.pcc12.Name = "pcc12";
             this.pcc12.Size = new System.Drawing.Size(100, 50);
+            this.pcc12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc12.TabIndex = 54;
             this.pcc12.TabStop = false;
             this.pcc12.Click += new System.EventHandler(this.pcc12_Click);
@@ -894,6 +916,7 @@
             this.pcc11.Location = new System.Drawing.Point(258, 146);
             this.pcc11.Name = "pcc11";
             this.pcc11.Size = new System.Drawing.Size(100, 50);
+            this.pcc11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc11.TabIndex = 53;
             this.pcc11.TabStop = false;
             this.pcc11.Click += new System.EventHandler(this.pcc11_Click);
@@ -904,6 +927,7 @@
             this.pcc10.Location = new System.Drawing.Point(140, 146);
             this.pcc10.Name = "pcc10";
             this.pcc10.Size = new System.Drawing.Size(100, 50);
+            this.pcc10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc10.TabIndex = 52;
             this.pcc10.TabStop = false;
             this.pcc10.Click += new System.EventHandler(this.pcc10_Click);
@@ -914,6 +938,7 @@
             this.pcc9.Location = new System.Drawing.Point(22, 146);
             this.pcc9.Name = "pcc9";
             this.pcc9.Size = new System.Drawing.Size(100, 50);
+            this.pcc9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc9.TabIndex = 51;
             this.pcc9.TabStop = false;
             this.pcc9.Click += new System.EventHandler(this.pcc9_Click);
@@ -924,6 +949,7 @@
             this.pcc8.Location = new System.Drawing.Point(839, 56);
             this.pcc8.Name = "pcc8";
             this.pcc8.Size = new System.Drawing.Size(100, 50);
+            this.pcc8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc8.TabIndex = 50;
             this.pcc8.TabStop = false;
             this.pcc8.Click += new System.EventHandler(this.pcc8_Click);
@@ -934,6 +960,7 @@
             this.pcc7.Location = new System.Drawing.Point(726, 56);
             this.pcc7.Name = "pcc7";
             this.pcc7.Size = new System.Drawing.Size(100, 50);
+            this.pcc7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc7.TabIndex = 49;
             this.pcc7.TabStop = false;
             this.pcc7.Click += new System.EventHandler(this.pcc7_Click);
@@ -1002,6 +1029,7 @@
             this.pcc6.Location = new System.Drawing.Point(608, 56);
             this.pcc6.Name = "pcc6";
             this.pcc6.Size = new System.Drawing.Size(100, 50);
+            this.pcc6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc6.TabIndex = 42;
             this.pcc6.TabStop = false;
             this.pcc6.Click += new System.EventHandler(this.pcc6_Click);
@@ -1012,6 +1040,7 @@
             this.pcc5.Location = new System.Drawing.Point(493, 56);
             this.pcc5.Name = "pcc5";
             this.pcc5.Size = new System.Drawing.Size(100, 50);
+            this.pcc5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc5.TabIndex = 41;
             this.pcc5.TabStop = false;
             this.pcc5.Click += new System.EventHandler(this.pcc5_Click);
@@ -1022,6 +1051,7 @@
             this.pcc4.Location = new System.Drawing.Point(375, 56);
             this.pcc4.Name = "pcc4";
             this.pcc4.Size = new System.Drawing.Size(100, 50);
+            this.pcc4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc4.TabIndex = 40;
             this.pcc4.TabStop = false;
             this.pcc4.Click += new System.EventHandler(this.pcc4_Click);
@@ -1032,6 +1062,7 @@
             this.pcc3.Location = new System.Drawing.Point(258, 56);
             this.pcc3.Name = "pcc3";
             this.pcc3.Size = new System.Drawing.Size(100, 50);
+            this.pcc3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc3.TabIndex = 39;
             this.pcc3.TabStop = false;
             this.pcc3.Click += new System.EventHandler(this.pcc3_Click);
@@ -1042,6 +1073,7 @@
             this.pcc2.Location = new System.Drawing.Point(140, 56);
             this.pcc2.Name = "pcc2";
             this.pcc2.Size = new System.Drawing.Size(100, 50);
+            this.pcc2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc2.TabIndex = 38;
             this.pcc2.TabStop = false;
             this.pcc2.Click += new System.EventHandler(this.pcc2_Click);
@@ -1052,6 +1084,7 @@
             this.pcc1.Location = new System.Drawing.Point(22, 56);
             this.pcc1.Name = "pcc1";
             this.pcc1.Size = new System.Drawing.Size(100, 50);
+            this.pcc1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcc1.TabIndex = 37;
             this.pcc1.TabStop = false;
             this.pcc1.Click += new System.EventHandler(this.pcc1_Click);
@@ -1074,8 +1107,9 @@
             "6 pm"});
             this.comboBox2.Location = new System.Drawing.Point(22, 29);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(96, 21);
+            this.comboBox2.Size = new System.Drawing.Size(123, 21);
             this.comboBox2.TabIndex = 36;
+            this.comboBox2.Text = "Seleccione horario";
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label42

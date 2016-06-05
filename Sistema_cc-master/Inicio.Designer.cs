@@ -35,6 +35,7 @@
             this.cargarAlumnosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.apartadoDeHorasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +54,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.apartadoDeHorasToolStripMenuItem});
+            this.apartadoDeHorasToolStripMenuItem,
+            this.administradorToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(359, 24);
@@ -86,6 +88,13 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // administradorToolStripMenuItem
+            // 
+            this.administradorToolStripMenuItem.Name = "administradorToolStripMenuItem";
+            this.administradorToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.administradorToolStripMenuItem.Text = "Administrador";
+            this.administradorToolStripMenuItem.Click += new System.EventHandler(this.administradorToolStripMenuItem_Click);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,5 +122,6 @@
         private System.Windows.Forms.ToolStripMenuItem cargarAlumnosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem apartadoDeHorasToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem administradorToolStripMenuItem;
     }
 }

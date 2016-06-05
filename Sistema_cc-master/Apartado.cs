@@ -16,6 +16,7 @@ namespace Sistema_cc
         MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
         MySqlConnection conn;
         MySqlCommand cmd;
+        DialogResult response;
 
         String coment;
 
@@ -28,9 +29,37 @@ namespace Sistema_cc
         int hora;
         String horas = "";
 
+
+        public void conexion()
+        {
+            //Hace la conexion a la db
+            b.Server = "localhost";
+            b.UserID = "root";
+            b.Password = "root";
+            b.Database = "sistemacc";
+            try
+            {
+                conn = new MySqlConnection(b.ToString());
+                conn.Open();
+                cmd = conn.CreateCommand();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public Apartado(String comentario, String matricula, String fecha2, int hora)
         {
             InitializeComponent();
+
+            if (dateTimePicker1.Text.Contains("sábado"))
+            {
+                dateTimePicker1.Text = dateTimePicker1.Value.AddDays(2).ToString();
+            }
+            else if (dateTimePicker1.Text.Contains("domingo"))
+            {
+                dateTimePicker1.Text = dateTimePicker1.Value.AddDays(1).ToString();
+            }
 
             coment = comentario;
             matriculaGlobal = matricula;
@@ -75,22 +104,7 @@ namespace Sistema_cc
             compus2[14] = pcc15;
             compus2[15] = pcc16;
 
-
-            //Hace la conexion a la db
-            b.Server = "localhost";
-            b.UserID = "root";
-            b.Password = "root";
-            b.Database = "sistemacc";
-            try
-            {
-                conn = new MySqlConnection(b.ToString());
-                conn.Open();
-                cmd = conn.CreateCommand();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            conexion();
         }
 
         public void agregar_comentario()
@@ -121,6 +135,7 @@ namespace Sistema_cc
 
                 etFecha.Text = dateTimePicker1.Value.ToShortDateString();
                 comboBox1.Enabled = true;
+                pictureBox1.Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
                 encontrado = 1;
             }
             r.Close();
@@ -182,7 +197,8 @@ namespace Sistema_cc
                     cmd.CommandText = "INSERT INTO scc_apartados (matricula, numequipo, numhr, fecha_apartado, numperiodo, fyh, cumplida) values('" + matricula + "', '" + pc + "', " + hora + ",'" + fechar[2] + "-" + fechar[1] + "-" + fechar[0] + "', '" + periodo + "', '" + fecha + "', 's');";
                     cmd.ExecuteNonQuery();
                     MessageBox.Show(nombre + " has apartado la pc " + pc);
-                    compus[pc - 1].BackColor = Color.Red;
+                    compus[pc - 1].Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
+                   // compus[pc - 1].BackColor = Color.Red;
                     compus[pc - 1].Enabled = false;
                 }
                 else
@@ -195,6 +211,8 @@ namespace Sistema_cc
         //Muestra las computadoras apartadas y las deshabilita
         public void pintar_pc(int hour)
         {
+            List<int> pcapartada = new List<int>();
+            int i=0;
             fecha = dateTimePicker1.Value.ToShortDateString();
 
             String[] fechar = fecha.Split('/');
@@ -207,7 +225,7 @@ namespace Sistema_cc
             //Pinta todas de blanco
             foreach (var item in compus)
             {
-                item.BackColor = Color.White;
+                item.Image = null;
                 item.Enabled = true;
             }
 
@@ -215,27 +233,44 @@ namespace Sistema_cc
             while (r.Read())
             {
                 valor = Convert.ToString(r[0]);
-                compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
+                //compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
                 compus[Convert.ToInt64(valor)-1].Enabled = false;
+                pcapartada.Add(Convert.ToInt16(valor) - 1);
             }
             r.Close();
+
+            cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+            MySqlDataReader rr = cmd.ExecuteReader();
+            //Pinta las apartadas de rojo
+            while (rr.Read())
+            {
+                valor = Convert.ToString(rr[0]);
+                compus[pcapartada.ElementAt(i)].Image = Image.FromFile(@"E:\Estudiantes\" + valor + ".jpg");
+                i++;
+            }
+            i = 0;
+            rr.Close();
+            pcapartada.Clear();
+
         }
 
         public void pintar_pc2(int hour)
         {
+            List<int> pcapartada = new List<int>();
+            int i = 0;
             fecha = dateTimePicker1.Value.ToShortDateString();
 
             String[] fechar = fecha.Split('/');
             String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
             hora = hour;
-            cmd.CommandText = "SELECT numequipo FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+            cmd.CommandText = "SELECT numequipo, matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
             MySqlDataReader r = cmd.ExecuteReader();
             String valor = "";
 
             //Pinta todas de blanco
             foreach (var item in compus2)
             {
-                item.BackColor = Color.White;
+                item.Image = null;
                 item.Enabled = false;
             }
 
@@ -243,11 +278,24 @@ namespace Sistema_cc
             while (r.Read())
             {
                 valor = Convert.ToString(r[0]);
-                compus2[Convert.ToInt64(valor) - 1].BackColor = Color.Red;
+                //compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
                 compus2[Convert.ToInt64(valor) - 1].Enabled = true;
-                //compus2[Convert.ToInt64(valor) - 1].Enabled = false;
+                pcapartada.Add(Convert.ToInt16(valor) - 1);
             }
             r.Close();
+
+            cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+            MySqlDataReader rr = cmd.ExecuteReader();
+            //Pinta las apartadas de rojo
+            while (rr.Read())
+            {
+                valor = Convert.ToString(rr[0]);
+                compus2[pcapartada.ElementAt(i)].Image = Image.FromFile(@"E:\Estudiantes\" + valor + ".jpg");
+                i++;
+            }
+            i = 0;
+            rr.Close();
+            pcapartada.Clear();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -262,8 +310,38 @@ namespace Sistema_cc
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
+            int bandera = 0;
+
+            if (dateTimePicker1.Text.Contains("sábado"))
+            {
+                MessageBox.Show("Los sabados no hay clases prro");
+            }
+            else if (dateTimePicker1.Text.Contains("domingo"))
+            {
+                MessageBox.Show("los domingos no hay clases prro");
+            }
+            String fechaC = obtener_fecha();
             pintar_pc(22);
             etFecha.Text = dateTimePicker1.Value.ToShortDateString();
+
+            cmd.CommandText = "SELECT activo FROM scc_inhabiles WHERE dia = '" + fechaC + "';";
+            MySqlDataReader rr = cmd.ExecuteReader();
+            //Pinta las apartadas de rojo
+            while (rr.Read())
+            {
+                bandera = 1;
+            }
+            if (bandera==1)
+            {
+                foreach (var item in compus)
+                {
+                    item.BackColor = Color.White;
+                    item.Enabled = false;
+                }
+                MessageBox.Show("Lo siento, esta fecha es inhabil");
+            }
+            rr.Close();
+
         }
 
         private void Apartado_Load(object sender, EventArgs e)
@@ -363,32 +441,73 @@ namespace Sistema_cc
             comboBox1.Enabled = false;
         }
 
-        private void pcc1_Click(object sender, EventArgs e)
+        public int obtener_hora()
         {
             horas = comboBox2.Text;
             horas = horas.Remove(2);
             horas = horas.Trim();
             hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(1);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-                    
-                }
-            }
+            return hora;
         }
 
+        public String obtener_fecha()
+        {
+            fecha = dateTimePicker1.Value.ToShortDateString();
+            String[] fechar = fecha.Split('/');
+            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
+            return fechaC;
+        }
+
+        private void pcc1_Click(object sender, EventArgs e)
+        {
+            cancela_hora(1);
+        }
+
+
+
+        public void cancela_hora(int equipo)
+        {
+            hora = obtener_hora();
+            fecha = obtener_fecha();
+
+            response = CustomMsgBox.Show("¿Qué desea hacer con la hora apartada?", "MSG", "Finalizar", "Cancelar", "Salir");
+            if (response == DialogResult.Yes)
+            {
+                MessageBox.Show("Entro a Finalizar");
+                obtener_numero_control(equipo);
+
+
+                DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
+                    if (dialogResult1 == DialogResult.Yes)
+                    {
+                        formFinalizar formFin = new formFinalizar(matriculaGlobal, fecha, hora);
+                        formFin.Show();
+
+                    }
+                }
+            }
+            else if (response == DialogResult.No)
+            {
+                obtener_numero_control(equipo);
+
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea cancelar la hora?", "Alerta", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //MessageBox.Show("DELETE FROM scc_apartados WHERE fecha_apartado = '" + fecha + "' AND numhr = " + hora + "AND numequipo =" + equipo + ";");
+                    cmd.CommandText = "DELETE FROM scc_apartados WHERE fecha_apartado = '" + fecha + "' AND numhr = " + hora + " AND numequipo =" + equipo + ";";
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("hora cancelada");
+                }
+
+            }
+            else if (response == DialogResult.OK)
+            {
+                MessageBox.Show("nel prro");
+            }
+        }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             horas = comboBox2.Text;
@@ -403,12 +522,8 @@ namespace Sistema_cc
 
         public void obtener_numero_control(int pc)
         {
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + " AND numequipo = " + pc + ";";
+            fecha = obtener_fecha();
+            cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fecha + "' AND numhr = " + hora + " AND numequipo = " + pc + ";";
             MySqlDataReader r = cmd.ExecuteReader();
 
             while (r.Read())
@@ -420,54 +535,12 @@ namespace Sistema_cc
 
         private void pcc2_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(2);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(2);
         }
 
         private void pcc3_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(3);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(3);
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
@@ -477,343 +550,68 @@ namespace Sistema_cc
 
         private void pcc4_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(4);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(4);
         }
 
         private void pcc5_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(5);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(5);
         }
 
         private void pcc6_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(6);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(6);
         }
 
         private void pcc7_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(7);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(7);
         }
 
         private void pcc8_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(8);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(8);
         }
 
         private void pcc9_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(9);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(9);
         }
 
         private void pcc10_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(10);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(10);
         }
 
         private void pcc11_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(11);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(1);
         }
 
         private void pcc12_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(12);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(12);
         }
 
         private void pcc13_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(13);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(13);
         }
 
         private void pcc14_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(14);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(14);
         }
 
         private void pcc15_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(15);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(15);
         }
 
         private void pcc16_Click(object sender, EventArgs e)
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-
-            obtener_numero_control(16);
-            DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult1 == DialogResult.Yes)
-                {
-                    formFinalizar formFin = new formFinalizar(matriculaGlobal, fechaC, hora);
-                    formFin.Show();
-
-                }
-            }
+            cancela_hora(16);
         }
-
-        
 
         private void menúPrincipalToolStripMenuItem_Click_1(object sender, EventArgs e)
         {

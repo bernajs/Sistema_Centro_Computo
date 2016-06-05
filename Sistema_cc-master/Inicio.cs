@@ -148,6 +148,13 @@ namespace Sistema_cc
              }
          }
 
+         private void administradorToolStripMenuItem_Click(object sender, EventArgs e)
+         {
+             Administrador admin = new Administrador();
+             admin.Show();
+             this.Hide();
+         }
+
     }
 }
 

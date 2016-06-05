@@ -23,3 +23,5 @@ C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_c
 C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\bin\Debug\Sistema_cc.application
 C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.exe.manifest
 C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.application
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.CustomMsgBox.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.Administrador.resources

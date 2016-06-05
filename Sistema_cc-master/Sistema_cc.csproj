@@ -75,11 +75,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador.Designer.cs">
+      <DependentUpon>Administrador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Apartado.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Apartado.Designer.cs">
       <DependentUpon>Apartado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomMsgBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomMsgBox.Designer.cs">
+      <DependentUpon>CustomMsgBox.cs</DependentUpon>
     </Compile>
     <Compile Include="formFinalizar.cs">
       <SubType>Form</SubType>
@@ -96,8 +108,14 @@
     <Compile Include="OpenFileDialog.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Administrador.resx">
+      <DependentUpon>Administrador.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Apartado.resx">
       <DependentUpon>Apartado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomMsgBox.resx">
+      <DependentUpon>CustomMsgBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formFinalizar.resx">
       <DependentUpon>formFinalizar.cs</DependentUpon>
