@@ -15,12 +15,13 @@ namespace Sistema_cc
 {
     public partial class Administrador : Form
     {
+        Inicio i = new Inicio();
         MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
         MySqlConnection conn;
         MySqlCommand cmd;
         String matricula, nombre, apaterno, amaterno, sexo, cvcarrera, carrera;
         String fecha;
-        int carreraIndex;
+        int carreraIndex = -1;
 
         public void conexion()
         {
@@ -53,6 +54,9 @@ namespace Sistema_cc
 
             monthCalendar1.Enabled = false;
             monthCalendar1.Visible = false;
+
+            lblAlumno.Visible = true;
+            lblFecha.Visible = false;
 
             btnRegistrar.Enabled = false;
             btnRegistrar.Visible = false;
@@ -108,7 +112,7 @@ namespace Sistema_cc
         {
 
             this.Size = new Size(242, 250);
-
+            lblAlumno.Visible = false;
             btnRegistrar.Enabled = true;
             btnRegistrar.Visible = true;
             btnFecha.Enabled = true;
@@ -157,44 +161,60 @@ namespace Sistema_cc
             nombre = etNombre.Text;
             carreraIndex = etCarrera.SelectedIndex;
             sexo = etSexo.Text;
+            if (matricula != "" && apaterno != "" && amaterno != "" && nombre != "" && carreraIndex !=-1  && sexo != "")
+            {
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar a este alumno?", "Alerta", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    if (carreraIndex == 0)
+                    {
+                        carrera = "Ingenieria en Gestion Empresarial";
+                        cvcarrera = "IGEM";
+                    }
+                    else if (carreraIndex == 1)
+                    {
+                        carrera = "Ingenieria Industrial";
+                        cvcarrera = "IIND";
+                    }
+                    else if (carreraIndex == 2)
+                    {
+                        carrera = "Ingenieria en Sistemas Computacionales";
+                        cvcarrera = "ISIC";
+                    }
+                    else if (carreraIndex == 3)
+                    {
+                        carrera = "Ingenieria en Innovacion Agricola Sustentable";
+                        cvcarrera = "IIAS";
+                    }
+                    //
+                    MessageBox.Show(string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera));
 
-            if (carreraIndex==0)
-            {
-                carrera = "Ingenieria en Gestion Empresarial";
-                cvcarrera = "IGEM";
+                    try
+                    {
+                        cmd.CommandText = string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Alumno agregado correctamente");
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Datos incorrectos, por favor vuelva a intentarlo");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Alumno no agregado");
+                }
             }
-            else if (carreraIndex==1)
+            else
             {
-                carrera = "Ingenieria Industrial";
-                cvcarrera = "IIND";
-            }
-            else if (carreraIndex==2)
-            {
-                carrera = "Ingenieria en Sistemas Computacionales";
-                cvcarrera = "ISIC";
-            }
-            else if (carreraIndex==3)
-            {
-                carrera = "Ingenieria en Innovacion Agricola Sustentable";
-                cvcarrera = "IIAS";
-            }
-            //
-            MessageBox.Show(string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera));
-
-            try
-            {
-                cmd.CommandText = string.Format("INSERT INTO scc_alumnos(matricula,paterno,materno,nombre,sexo,cvecarrera,carrera,activo2,activo) VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','INSCRITO','T');", matricula, apaterno, amaterno, nombre, sexo, cvcarrera, carrera);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Alumno agregado correctamente");
-            }
-            catch
-            {
-                MessageBox.Show("Datos incorrectos, por favor vuelva a intentarlo");
+                MessageBox.Show("Por favor llene todos los campos");
             }
         }
 
         private void btnFecha_Click(object sender, EventArgs e)
         {
+            lblFecha.Visible = true;
+            lblAlumno.Visible = false;
             btnRegistrar.Visible = false;
             btnRegistrar.Enabled = false;
 
@@ -214,16 +234,33 @@ namespace Sistema_cc
 
         private void btnAceptarF_Click(object sender, EventArgs e)
         {
-            fecha = monthCalendar1.SelectionStart.ToString("yyyy-MM-dd");
-            MessageBox.Show(fecha);
-            //MessageBox.Show(string.Format("INSERT INTO scc_inhabiles VALUES('{0}', '{1}');", fecha, "T"));
-            cmd.CommandText = string.Format("INSERT INTO scc_inhabiles VALUES('{0}', '{1}');", fecha, "T");
-            cmd.ExecuteNonQuery();
+            DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar esta fecha?", "Alerta", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                try
+                {
+                    fecha = monthCalendar1.SelectionStart.ToString("yyyy-MM-dd");
+                    MessageBox.Show(fecha);
+                    //MessageBox.Show(string.Format("INSERT INTO scc_inhabiles VALUES('{0}', '{1}');", fecha, "T"));
+                    cmd.CommandText = string.Format("INSERT INTO scc_inhabiles VALUES('{0}', '{1}');", fecha, "T");
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Fecha agregada correctamente");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Esta fecha ya se encuentra agregada");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fecha no agregada");
+            }
         }
 
         private void btnAtrasF_Click(object sender, EventArgs e)
         {
             this.Size = new Size(331, 338);
+            lblFecha.Visible = false;
             monthCalendar1.Enabled = false;
             monthCalendar1.Visible = false;
             btnAceptarF.Enabled = false;
@@ -235,6 +272,17 @@ namespace Sistema_cc
             btnRegistrar.Visible = true;
             btnFecha.Enabled = true;
             btnFecha.Visible = true;
+        }
+
+        private void menúPrincipalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            i.Show();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

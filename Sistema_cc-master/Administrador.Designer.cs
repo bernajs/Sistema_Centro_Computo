@@ -47,11 +47,18 @@
             this.btnAtrasF = new System.Windows.Forms.Button();
             this.btnAceptarF = new System.Windows.Forms.Button();
             this.etCarrera = new System.Windows.Forms.ComboBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menúPrincipalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblAlumno = new System.Windows.Forms.Label();
+            this.lblFecha = new System.Windows.Forms.Label();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.Location = new System.Drawing.Point(74, 44);
+            this.btnRegistrar.Location = new System.Drawing.Point(93, 33);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(100, 24);
             this.btnRegistrar.TabIndex = 0;
@@ -61,7 +68,7 @@
             // 
             // btnFecha
             // 
-            this.btnFecha.Location = new System.Drawing.Point(74, 97);
+            this.btnFecha.Location = new System.Drawing.Point(93, 79);
             this.btnFecha.Name = "btnFecha";
             this.btnFecha.Size = new System.Drawing.Size(100, 26);
             this.btnFecha.TabIndex = 1;
@@ -208,7 +215,7 @@
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(39, 57);
+            this.monthCalendar1.Location = new System.Drawing.Point(41, 60);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 16;
             this.monthCalendar1.Visible = false;
@@ -244,17 +251,74 @@
             "Ingeniería Industrial",
             "Ingeniería en Sistemas Computacionales",
             "Ingeniería en Innovacion Agrícola"});
-            this.etCarrera.Location = new System.Drawing.Point(124, 178);
+            this.etCarrera.Location = new System.Drawing.Point(127, 178);
             this.etCarrera.Name = "etCarrera";
-            this.etCarrera.Size = new System.Drawing.Size(121, 21);
+            this.etCarrera.Size = new System.Drawing.Size(165, 21);
             this.etCarrera.TabIndex = 0;
             this.etCarrera.Visible = false;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.archivoToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(317, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menúPrincipalToolStripMenuItem,
+            this.salirToolStripMenuItem});
+            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.archivoToolStripMenuItem.Text = "Archivo";
+            // 
+            // menúPrincipalToolStripMenuItem
+            // 
+            this.menúPrincipalToolStripMenuItem.Name = "menúPrincipalToolStripMenuItem";
+            this.menúPrincipalToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.menúPrincipalToolStripMenuItem.Text = "Menú principal";
+            this.menúPrincipalToolStripMenuItem.Click += new System.EventHandler(this.menúPrincipalToolStripMenuItem_Click);
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // lblAlumno
+            // 
+            this.lblAlumno.AutoSize = true;
+            this.lblAlumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlumno.Location = new System.Drawing.Point(75, 24);
+            this.lblAlumno.Name = "lblAlumno";
+            this.lblAlumno.Size = new System.Drawing.Size(175, 25);
+            this.lblAlumno.TabIndex = 20;
+            this.lblAlumno.Text = "Registrar alumno";
+            this.lblAlumno.Visible = false;
+            // 
+            // lblFecha
+            // 
+            this.lblFecha.AutoSize = true;
+            this.lblFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFecha.Location = new System.Drawing.Point(88, 26);
+            this.lblFecha.Name = "lblFecha";
+            this.lblFecha.Size = new System.Drawing.Size(141, 25);
+            this.lblFecha.TabIndex = 21;
+            this.lblFecha.Text = "Fecha inhabil";
+            this.lblFecha.Visible = false;
             // 
             // Administrador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 276);
+            this.ClientSize = new System.Drawing.Size(317, 252);
+            this.Controls.Add(this.lblFecha);
+            this.Controls.Add(this.lblAlumno);
             this.Controls.Add(this.etCarrera);
             this.Controls.Add(this.btnAtrasF);
             this.Controls.Add(this.btnAceptarF);
@@ -274,8 +338,13 @@
             this.Controls.Add(this.lblMatricula);
             this.Controls.Add(this.btnFecha);
             this.Controls.Add(this.btnRegistrar);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Administrador";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Administrador";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,5 +371,11 @@
         private System.Windows.Forms.Button btnAtrasF;
         private System.Windows.Forms.Button btnAceptarF;
         private System.Windows.Forms.ComboBox etCarrera;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menúPrincipalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.Label lblAlumno;
+        private System.Windows.Forms.Label lblFecha;
     }
 }

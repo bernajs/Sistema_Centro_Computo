@@ -122,46 +122,55 @@ namespace Sistema_cc
             int encontrado = 0;
             //this.AcceptButton =
             matricula = etMatricula.Text;
-            cmd.CommandText = "SELECT matricula, nombre, paterno, materno, carrera FROM scc_alumnos WHERE matricula = '" + matricula + "' ;";
-            MySqlDataReader r = cmd.ExecuteReader();
-            while (r.Read())
+            if (matricula != "" || matricula.Contains(' '))
             {
-                MessageBox.Show("Alumno encontrado");
-                etNombre.Text = Convert.ToString(r[1]);
-                etAPaterno.Text = Convert.ToString(r[2]);
-                etAMaterno.Text = Convert.ToString(r[3]);
-                etCarrera.Text = Convert.ToString(r[4]);
-                //etFecha.Text = monthCalendar1.SelectionRange.Start.ToString();
-
-                etFecha.Text = dateTimePicker1.Value.ToShortDateString();
-                comboBox1.Enabled = true;
-                try
+                cmd.CommandText = "SELECT matricula, nombre, paterno, materno, carrera FROM scc_alumnos WHERE matricula = '" + matricula + "' ;";
+                MySqlDataReader r = cmd.ExecuteReader();
+                while (r.Read())
                 {
-                    pictureBox1.Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("No se encontró su fotografiía, por favor pase a servicios escolares para que se la tomen");
-                }
-                encontrado = 1;
-            }
-            r.Close();
-            comboBox1.Text = "7 am";
+                    MessageBox.Show("Alumno encontrado");
+                    etNombre.Text = Convert.ToString(r[1]);
+                    etAPaterno.Text = Convert.ToString(r[2]);
+                    etAMaterno.Text = Convert.ToString(r[3]);
+                    etCarrera.Text = Convert.ToString(r[4]);
+                    //etFecha.Text = monthCalendar1.SelectionRange.Start.ToString();
 
-            if (encontrado==0)
-            {
-                etMatricula.Text = "";
-                etNombre.Text = "";
-                etAPaterno.Text = "";
-                etAMaterno.Text = "";
-                etCarrera.Text = "";
-                etFecha.Text = "";
-                comboBox1.Enabled = false;
-                MessageBox.Show("No se encontró el número de control");
+                    etFecha.Text = dateTimePicker1.Value.ToShortDateString();
+                    comboBox1.Enabled = true;
+                    try
+                    {
+                        pictureBox1.Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("No se encontró su fotografiía, por favor pase a servicios escolares para que se la tomen");
+                    }
+
+                    encontrado = 1;
+                    //comboBox1.Text = "7 am";
+                    //comboBox2.Text = "7 am";
+                }
+               r.Close();
+
+                if (encontrado == 0)
+                {
+                    etMatricula.Text = "";
+                    etNombre.Text = "";
+                    etAPaterno.Text = "";
+                    etAMaterno.Text = "";
+                    etCarrera.Text = "";
+                    etFecha.Text = "";
+                    comboBox1.Enabled = false;
+                    MessageBox.Show("No se encontró el número de control");
+                }
+                else
+                {
+                    encontrado = 0;
+                }
             }
             else
             {
-                encontrado = 0;
+                MessageBox.Show("Por favor ingrese una matrícula");
             }
         }
 
@@ -169,11 +178,7 @@ namespace Sistema_cc
         public void apartar_pc(int pcnumero)
         {
             int apartado_flag = 0;
-
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
+            String fechaC = obtener_fecha();
             cmd.CommandText = "SELECT numequipo FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + " AND matricula = '" + matricula + "';";
             MySqlDataReader r = cmd.ExecuteReader();
 
@@ -196,12 +201,14 @@ namespace Sistema_cc
                     String periodo = "F-A";
                     int pc = pcnumero;
                     //fecha = dateTimePicker1.Value.ToShortDateString();
-                    horas = comboBox1.Text;
+                   /* horas = comboBox1.Text;
                     horas = horas.Remove(2);
                     horas = horas.Trim();
-                    hora = Convert.ToInt32(horas);
+                    hora = Convert.ToInt32(horas);*/
+                    hora = obtener_hora1();
+                    MessageBox.Show(hora.ToString());
                     //String[] fechar = fecha.Split('/');
-                    cmd.CommandText = "INSERT INTO scc_apartados (matricula, numequipo, numhr, fecha_apartado, numperiodo, fyh, cumplida) values('" + matricula + "', '" + pc + "', " + hora + ",'" + fechar[2] + "-" + fechar[1] + "-" + fechar[0] + "', '" + periodo + "', '" + fecha + "', 's');";
+                    cmd.CommandText = "INSERT INTO scc_apartados (matricula, numequipo, numhr, fecha_apartado, numperiodo, fyh, cumplida) values('" + matricula + "', '" + pc + "', " + hora + ",'" + fechaC + "', '" + periodo + "', '" + fecha + "', 's');";
                     cmd.ExecuteNonQuery();
                     MessageBox.Show(nombre + " has apartado la pc " + pc);
                     compus[pc - 1].Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
@@ -457,6 +464,15 @@ namespace Sistema_cc
             return hora;
         }
 
+        public int obtener_hora1()
+        {
+            horas = comboBox1.Text;
+            horas = horas.Remove(2);
+            horas = horas.Trim();
+            hora = Convert.ToInt32(horas);
+            return hora;
+        }
+
         public String obtener_fecha()
         {
             fecha = dateTimePicker1.Value.ToShortDateString();
@@ -480,7 +496,7 @@ namespace Sistema_cc
             response = CustomMsgBox.Show("¿Qué desea hacer con la hora apartada?", "MSG", "Finalizar", "Cancelar", "Salir");
             if (response == DialogResult.Yes)
             {
-                MessageBox.Show("Entro a Finalizar");
+             //   MessageBox.Show("Entro a Finalizar");
                 obtener_numero_control(equipo);
 
 
@@ -492,8 +508,10 @@ namespace Sistema_cc
                     {
                         formFinalizar formFin = new formFinalizar(matriculaGlobal, fecha, hora);
                         formFin.Show();
-
                     }
+                    cmd.CommandText = "DELETE FROM scc_apartados WHERE fecha_apartado = '" + fecha + "' AND numhr = " + hora + " AND numequipo =" + equipo + ";";
+                    cmd.ExecuteNonQuery();
+                    pintar_pc(22);
                 }
             }
             else if (response == DialogResult.No)
@@ -592,7 +610,7 @@ namespace Sistema_cc
 
         private void pcc11_Click(object sender, EventArgs e)
         {
-            cancela_hora(1);
+            cancela_hora(11);
         }
 
         private void pcc12_Click(object sender, EventArgs e)
