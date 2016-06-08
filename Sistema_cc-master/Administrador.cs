@@ -16,12 +16,16 @@ namespace Sistema_cc
     public partial class Administrador : Form
     {
         Inicio i = new Inicio();
+        Apartado a = new Apartado("","","", 0);
         MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
         MySqlConnection conn;
         MySqlCommand cmd;
         String matricula, nombre, apaterno, amaterno, sexo, cvcarrera, carrera;
         String fecha;
-        int carreraIndex = -1;
+        String fechaini, fechafin, anioini, aniofin;
+        String periodofinal, periodos;
+        String[] pe;
+        int carreraIndex = -1, bandera = 0, periodo = 7;
 
         public void conexion()
         {
@@ -52,11 +56,9 @@ namespace Sistema_cc
         {
             this.Size = new Size(331, 338);
 
-            monthCalendar1.Enabled = false;
+            /*monthCalendar1.Enabled = false;
             monthCalendar1.Visible = false;
 
-            lblAlumno.Visible = true;
-            lblFecha.Visible = false;
 
             btnRegistrar.Enabled = false;
             btnRegistrar.Visible = false;
@@ -95,7 +97,7 @@ namespace Sistema_cc
             etMaterno.Enabled = true;
             etMaterno.Visible = true;
             etSexo.Enabled = true;
-            etSexo.Visible = true;
+            etSexo.Visible = true;*/
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -111,9 +113,7 @@ namespace Sistema_cc
         private void btnAtras_Click(object sender, EventArgs e)
         {
 
-            this.Size = new Size(242, 250);
-            lblAlumno.Visible = false;
-            btnRegistrar.Enabled = true;
+            /*btnRegistrar.Enabled = true;
             btnRegistrar.Visible = true;
             btnFecha.Enabled = true;
             btnFecha.Visible = true;
@@ -121,9 +121,9 @@ namespace Sistema_cc
             btnAceptar.Enabled = false;
             btnAceptar.Visible = false;
             btnAtras.Enabled = false;
-            btnAtras.Visible = false;
+            btnAtras.Visible = false;*/
 
-            lblMatricula.Enabled = false;
+            /*lblMatricula.Enabled = false;
             lblMatricula.Visible = false;
             lblNombre.Enabled = false;
             lblNombre.Visible = false;
@@ -135,21 +135,15 @@ namespace Sistema_cc
             lblSexo.Enabled = false;
             lblSexo.Visible = false;
             lblCarrera.Enabled = false;
-            lblCarrera.Visible = false;
+            lblCarrera.Visible = false;*/
 
-            etMatricula.Enabled = false;
-            etMatricula.Visible = false;
-            etNombre.Enabled = false;
-            etNombre.Visible = false;
-            etPaterno.Enabled = false;
-            etPaterno.Visible = false;
-            etMaterno.Enabled = false;
-            etMaterno.Visible = false;
-            etSexo.Enabled = false;
-            etSexo.Visible = false;
+            etMatricula.Text = "";
+            etNombre.Text = "";
+            etPaterno.Text = "";
+            etMaterno.Text = "";
+            etSexo.Text = "";
 
-            etCarrera.Enabled = false;
-            etCarrera.Visible = false;
+            etCarrera.Text = "";
 
         }
 
@@ -163,7 +157,7 @@ namespace Sistema_cc
             sexo = etSexo.Text;
             if (matricula != "" && apaterno != "" && amaterno != "" && nombre != "" && carreraIndex !=-1  && sexo != "")
             {
-                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar a este alumno?", "Alerta", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar a este alumno?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
                     if (carreraIndex == 0)
@@ -213,9 +207,7 @@ namespace Sistema_cc
 
         private void btnFecha_Click(object sender, EventArgs e)
         {
-            lblFecha.Visible = true;
-            lblAlumno.Visible = false;
-            btnRegistrar.Visible = false;
+           /* btnRegistrar.Visible = false;
             btnRegistrar.Enabled = false;
 
             btnAceptarF.Enabled = true;
@@ -229,12 +221,12 @@ namespace Sistema_cc
 
             this.Size = new Size(355, 315);
             monthCalendar1.Enabled = true;
-            monthCalendar1.Visible = true;
+            monthCalendar1.Visible = true;*/
         }
 
         private void btnAceptarF_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar esta fecha?", "Alerta", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar esta fecha?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
                 try
@@ -260,18 +252,10 @@ namespace Sistema_cc
         private void btnAtrasF_Click(object sender, EventArgs e)
         {
             this.Size = new Size(331, 338);
-            lblFecha.Visible = false;
             monthCalendar1.Enabled = false;
             monthCalendar1.Visible = false;
             btnAceptarF.Enabled = false;
             btnAceptarF.Visible = false;
-            btnAtrasF.Enabled = false;
-            btnAtrasF.Visible = false;
-            
-            btnRegistrar.Enabled = true;
-            btnRegistrar.Visible = true;
-            btnFecha.Enabled = true;
-            btnFecha.Visible = true;
         }
 
         private void menúPrincipalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -281,6 +265,144 @@ namespace Sistema_cc
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            a.Show();
+            //Application.Exit();
+        }
+
+        private void Administrador_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            String equipoinhabil = "";
+            int numequipoinhabil = 0;
+            equipoinhabil = etEquipo.Text;
+            DateTime now = DateTime.Now;
+            String[] fechar = now.ToString().Substring(0,10).Split('/');
+            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
+            try
+            {
+                numequipoinhabil = Convert.ToInt16(equipoinhabil);
+                if (numequipoinhabil > 9 && numequipoinhabil < 17)
+                {
+                    cmd.CommandText = "UPDATE scc_equipos SET activo = 'F' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
+                    cmd.ExecuteNonQuery();
+                }
+                else if (numequipoinhabil < 9)
+                {
+                    MessageBox.Show("UPDATE scc_equipos SET activo = 'F' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';");
+                    cmd.CommandText = "UPDATE scc_equipos SET activo = 'F' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
+                    cmd.ExecuteNonQuery();
+                }
+                etEquipo.Text = "";
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Por favor, solo ingresa el número de equipo");
+                etEquipo.Text = "";
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String equipoinhabil = "";
+            String fechaC = "0";
+            int numequipoinhabil = 0;
+            equipoinhabil = etEquipoHabilitar.Text;
+            try
+            {
+                numequipoinhabil = Convert.ToInt16(equipoinhabil);
+                if (numequipoinhabil > 9)
+                {
+                    cmd.CommandText = "UPDATE scc_equipos SET activo = 'T' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
+                    cmd.ExecuteNonQuery();
+                }
+                else if (numequipoinhabil < 9)
+                {
+                    cmd.CommandText = "UPDATE scc_equipos SET activo = 'T' AND fecha ='"+ fechaC +"' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
+                    cmd.ExecuteNonQuery();
+                }
+                etEquipoHabilitar.Text = "";
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Por favor, solo ingresa el número de equipo");
+                etEquipoHabilitar.Text = "";
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            monthCalendar2.Enabled = true;
+            MessageBox.Show("Por favor seleccione el dia de inicio de periodo");
+            bandera = 1;
+        }
+
+        private void monthCalendar2_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            periodos = "P000" + periodo;
+            pe = comboBox1.Text.ToString().Split('-');
+            if (bandera == 1)
+            {
+                fechaini = fecha = monthCalendar2.SelectionStart.ToString("yyyy-MM-dd");
+                anioini = fecha = monthCalendar2.SelectionStart.ToString("yyyy");
+                bandera = 2;
+                MessageBox.Show("Por favor, selecciona la fecha final del periodo");
+            }
+            else if (bandera == 2)
+            {
+                fechafin = fecha = monthCalendar2.SelectionStart.ToString("yyyy-MM-dd");
+                aniofin = fecha = monthCalendar2.SelectionStart.ToString("yyyy");
+                bandera = 3;
+            }
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (bandera == 3)
+            {
+                fechafin = fecha = monthCalendar2.SelectionStart.ToString("yyyy-MM-dd");
+                aniofin = fecha = monthCalendar2.SelectionStart.ToString("yyyy");
+                periodofinal = pe[0].Trim() + " " + anioini + " - " + pe[1].Trim() + " " + aniofin;
+                bandera = 3;
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea agregar este periodo?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    cmd.CommandText = "UPDATE scc_periodos SET activo = 'F' WHERE activo = 'T';";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = string.Format("INSERT INTO scc_periodos VALUES('{0}', '{1}', '{2}', '{3}', '{4}');", periodos, periodofinal, fechaini, fechafin, "T");
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Periodo agregado correctamente, ahora este periodo será el que este en uso");
+                    periodo++;
+                    //bandera = 0;
+                }
+                else
+                {
+                    bandera = 0;
+                    MessageBox.Show("Si desea agregar un periodo vuelva hacer los mismos pasos");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor seleccione el periodo, fecha de inicio y fecha final");
+            }
+        }
+
+        private void salirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }

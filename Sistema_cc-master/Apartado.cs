@@ -17,8 +17,10 @@ namespace Sistema_cc
         MySqlConnection conn;
         MySqlCommand cmd;
         DialogResult response;
-
+        int fechahabil = 0;
         String coment;
+
+
 
         SqlConnection con = new SqlConnection();
         int[] computadoras = new int[5];
@@ -27,6 +29,7 @@ namespace Sistema_cc
         String nombre, matricula, matriculaGlobal, fecha, fechaGlobal;
         int horaglobal;
         int hora;
+        int encontradog = 0;
         String horas = "";
 
 
@@ -48,9 +51,26 @@ namespace Sistema_cc
                 throw;
             }
         }
+
+        private void tabControl1_SelectedIndexchanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                comboBox1.Text = comboBox2.Text;
+                pintar_pc(obtener_hora1());
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                comboBox2.Text = comboBox1.Text;
+                pintar_pc2(obtener_hora());
+            }
+        }
+
         public Apartado(String comentario, String matricula, String fecha2, int hora)
         {
             InitializeComponent();
+
+            tabControl1.SelectedIndexChanged += new EventHandler(tabControl1_SelectedIndexchanged);
 
             if (dateTimePicker1.Text.Contains("sábado"))
             {
@@ -129,6 +149,11 @@ namespace Sistema_cc
                 while (r.Read())
                 {
                     MessageBox.Show("Alumno encontrado");
+                    foreach (var item in compus)
+                    {
+                        item.Enabled = true;
+                    }
+                    encontradog = 1;
                     etNombre.Text = Convert.ToString(r[1]);
                     etAPaterno.Text = Convert.ToString(r[2]);
                     etAMaterno.Text = Convert.ToString(r[3]);
@@ -177,139 +202,188 @@ namespace Sistema_cc
         //Metodo para apartar pc
         public void apartar_pc(int pcnumero)
         {
-            int apartado_flag = 0;
-            String fechaC = obtener_fecha();
-            cmd.CommandText = "SELECT numequipo FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + " AND matricula = '" + matricula + "';";
-            MySqlDataReader r = cmd.ExecuteReader();
+            hora = obtener_hora1();
+            if (hora != 0 && encontradog != 0 && fechahabil == 0)
+            {
+                int apartado_flag = 0;
+                String fechaC = obtener_fecha();
+                cmd.CommandText = "SELECT numequipo FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + " AND matricula = '" + matricula + "';";
+                MySqlDataReader r = cmd.ExecuteReader();
 
-            while (r.Read())
-            {
-                apartado_flag = 1;
-                break;
-            }
-            r.Close();
-            if (apartado_flag == 1)
-            {
-                MessageBox.Show("Ya has apartado un equipo en este día y a esta hora");
-            }
-            else
-            {
-                nombre = etNombre.Text;
-                DialogResult dialogResult = MessageBox.Show("¿Apartar computadora?", "Alerta", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
+                while (r.Read())
                 {
-                    String periodo = "F-A";
-                    int pc = pcnumero;
-                    //fecha = dateTimePicker1.Value.ToShortDateString();
-                   /* horas = comboBox1.Text;
-                    horas = horas.Remove(2);
-                    horas = horas.Trim();
-                    hora = Convert.ToInt32(horas);*/
-                    hora = obtener_hora1();
-                    MessageBox.Show(hora.ToString());
-                    //String[] fechar = fecha.Split('/');
-                    cmd.CommandText = "INSERT INTO scc_apartados (matricula, numequipo, numhr, fecha_apartado, numperiodo, fyh, cumplida) values('" + matricula + "', '" + pc + "', " + hora + ",'" + fechaC + "', '" + periodo + "', '" + fecha + "', 's');";
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show(nombre + " has apartado la pc " + pc);
-                    compus[pc - 1].Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
-                   // compus[pc - 1].BackColor = Color.Red;
-                    compus[pc - 1].Enabled = false;
+                    apartado_flag = 1;
+                    break;
+                }
+                r.Close();
+                if (apartado_flag == 1)
+                {
+                    MessageBox.Show("Ya has apartado un equipo en este día y a esta hora");
                 }
                 else
                 {
-                    MessageBox.Show("No se ha apartado un equipo");
+                    nombre = etNombre.Text;
+                    DialogResult dialogResult = MessageBox.Show("¿Apartar computadora?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        String periodo = "F-A";
+                        int pc = pcnumero;
+                        //fecha = dateTimePicker1.Value.ToShortDateString();
+                        /* horas = comboBox1.Text;
+                         horas = horas.Remove(2);
+                         horas = horas.Trim();
+                         hora = Convert.ToInt32(horas);*/
+                        //MessageBox.Show(hora.ToString());
+                        //String[] fechar = fecha.Split('/');
+                        cmd.CommandText = "INSERT INTO scc_apartados (matricula, numequipo, numhr, fecha_apartado, numperiodo, fyh, cumplida) values('" + matricula + "', '" + pc + "', " + hora + ",'" + fechaC + "', '" + periodo + "', '" + fecha + "', 's');";
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show(nombre + " has apartado la pc " + pc);
+                        compus[pc - 1].Image = Image.FromFile(@"E:\Estudiantes\" + matricula + ".jpg");
+                        // compus[pc - 1].BackColor = Color.Red;
+                        compus[pc - 1].Enabled = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha apartado un equipo");
+                    }
                 }
+            }
+            else if (encontradog==0)
+            {
+                MessageBox.Show("Por favor ingresa un numero de matricula");
             }
         }
 
         //Muestra las computadoras apartadas y las deshabilita
         public void pintar_pc(int hour)
         {
-            List<int> pcapartada = new List<int>();
-            int i=0;
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-            hora = hour;
-            cmd.CommandText = "SELECT numequipo FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora +  ";";
-            MySqlDataReader r = cmd.ExecuteReader();
-            String valor = "";
-
-            //Pinta todas de blanco
-            foreach (var item in compus)
+            if (hora != 0)
             {
-                item.Image = null;
-                item.Enabled = true;
-            }
+                List<int> pcapartada = new List<int>();
+                int i = 0;
+                fecha = dateTimePicker1.Value.ToShortDateString();
 
-            //Pinta las apartadas de rojo
-            while (r.Read())
-            {
-                valor = Convert.ToString(r[0]);
-                //compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
-                compus[Convert.ToInt64(valor)-1].Enabled = false;
-                pcapartada.Add(Convert.ToInt16(valor) - 1);
-            }
-            r.Close();
+                String[] fechar = fecha.Split('/');
+                String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
+                hora = hour;
+                cmd.CommandText = "SELECT numequipo FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+                MySqlDataReader r = cmd.ExecuteReader();
+                String valor = "";
 
-            cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
-            MySqlDataReader rr = cmd.ExecuteReader();
-            //Pinta las apartadas de rojo
-            while (rr.Read())
-            {
-                valor = Convert.ToString(rr[0]);
-                compus[pcapartada.ElementAt(i)].Image = Image.FromFile(@"E:\Estudiantes\" + valor + ".jpg");
-                i++;
+                //Pinta todas de blanco
+                foreach (var item in compus)
+                {
+                    item.Image = null;
+                    item.BackColor = Color.White;
+                    item.Enabled = true;
+                }
+
+                //Pinta las apartadas de rojo
+                while (r.Read())
+                {
+                    valor = Convert.ToString(r[0]);
+                    //compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
+                    compus[Convert.ToInt64(valor) - 1].Enabled = false;
+                    pcapartada.Add(Convert.ToInt16(valor) - 1);
+                }
+                r.Close();
+
+                cmd.CommandText = "SELECT numequipo FROM scc_equipos WHERE activo = 'F';";
+                MySqlDataReader rhabil = cmd.ExecuteReader();
+
+                int equipoinhabil = 0;
+                while (rhabil.Read())
+                {
+                    valor = Convert.ToString(rhabil[0]);
+                    valor = valor.Replace("E","");
+                    equipoinhabil = Convert.ToInt16(valor);
+                    compus[equipoinhabil-1].BackColor = Color.DarkGray;
+                    compus[equipoinhabil-1].Enabled = false;
+
+                }
+                rhabil.Close();
+
+                cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+                MySqlDataReader rr = cmd.ExecuteReader();
+                //Pinta las apartadas de rojo
+                while (rr.Read())
+                {
+                    valor = Convert.ToString(rr[0]);
+
+                    try
+                    {
+                        compus[pcapartada.ElementAt(i)].Image = Image.FromFile(@"E:\Estudiantes\" + valor + ".jpg");
+                        i++;
+                    }
+                    catch (Exception)
+                    {
+                        compus[pcapartada.ElementAt(i)].BackColor = Color.Red;
+                        compus[pcapartada.ElementAt(i)].Enabled = false;
+                        i++;
+                    }
+                }
+                i = 0;
+                rr.Close();
+                pcapartada.Clear();
             }
-            i = 0;
-            rr.Close();
-            pcapartada.Clear();
 
         }
 
         public void pintar_pc2(int hour)
         {
-            List<int> pcapartada = new List<int>();
-            int i = 0;
-            fecha = dateTimePicker1.Value.ToShortDateString();
-
-            String[] fechar = fecha.Split('/');
-            String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
-            hora = hour;
-            cmd.CommandText = "SELECT numequipo, matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
-            MySqlDataReader r = cmd.ExecuteReader();
-            String valor = "";
-
-            //Pinta todas de blanco
-            foreach (var item in compus2)
+            if (hora != 0)
             {
-                item.Image = null;
-                item.Enabled = false;
-            }
+                List<int> pcapartada = new List<int>();
+                int i = 0;
+                fecha = dateTimePicker1.Value.ToShortDateString();
 
-            //Pinta las apartadas de rojo
-            while (r.Read())
-            {
-                valor = Convert.ToString(r[0]);
-                //compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
-                compus2[Convert.ToInt64(valor) - 1].Enabled = true;
-                pcapartada.Add(Convert.ToInt16(valor) - 1);
-            }
-            r.Close();
+                String[] fechar = fecha.Split('/');
+                String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
+                hora = hour;
+                cmd.CommandText = "SELECT numequipo, matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+                MySqlDataReader r = cmd.ExecuteReader();
+                String valor = "";
 
-            cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
-            MySqlDataReader rr = cmd.ExecuteReader();
-            //Pinta las apartadas de rojo
-            while (rr.Read())
-            {
-                valor = Convert.ToString(rr[0]);
-                compus2[pcapartada.ElementAt(i)].Image = Image.FromFile(@"E:\Estudiantes\" + valor + ".jpg");
-                i++;
+                //Pinta todas de blanco
+                foreach (var item in compus2)
+                {
+                    item.Image = null;
+                    item.BackColor = Color.White;
+                    item.Enabled = false;
+                }
+
+                //Pinta las apartadas de rojo
+                while (r.Read())
+                {
+                    valor = Convert.ToString(r[0]);
+                    //compus[Convert.ToInt64(valor)-1].BackColor = Color.Red;
+                    compus2[Convert.ToInt64(valor) - 1].Enabled = true;
+                    pcapartada.Add(Convert.ToInt16(valor) - 1);
+                }
+                r.Close();
+
+                cmd.CommandText = "SELECT matricula FROM scc_apartados WHERE fecha_apartado = '" + fechaC + "' AND numhr = " + hora + ";";
+                MySqlDataReader rr = cmd.ExecuteReader();
+                //Pinta las apartadas de rojo
+                while (rr.Read())
+                {
+                    valor = Convert.ToString(rr[0]);
+                    try
+                    {
+                        compus2[pcapartada.ElementAt(i)].Image = Image.FromFile(@"E:\Estudiantes\" + valor + ".jpg");
+                        i++;
+                    }
+                    catch (Exception)
+                    {
+                        compus2[pcapartada.ElementAt(i)].BackColor = Color.Red;
+                        compus2[pcapartada.ElementAt(i)].Enabled = true;
+                        i++;
+                    }
+                }
+                i = 0;
+                rr.Close();
+                pcapartada.Clear();
             }
-            i = 0;
-            rr.Close();
-            pcapartada.Clear();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -324,17 +398,43 @@ namespace Sistema_cc
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
+            String fechaC = obtener_fecha();
             int bandera = 0;
+            DateTime fechaini, fechafin;
+            String[] fechas = new String[2];
+            cmd.CommandText = "SELECT concat(fechaini,' ',fechafin) FROM scc_periodos WHERE activo = 'T';";
+            MySqlDataReader r = cmd.ExecuteReader();
 
-            if (dateTimePicker1.Text.Contains("sábado"))
+            while (r.Read())
             {
-                MessageBox.Show("Los sabados no hay clases prro");
+                fechas = r[0].ToString().Split(' ');
+            }
+            r.Close();
+
+            fechaini = DateTime.ParseExact(fechas[0], "yyyy-MM-dd", null);
+            fechafin = Convert.ToDateTime(fechas[1]);
+            String fechar = dateTimePicker1.Value.ToShortDateString();
+            if (Convert.ToDateTime(fechar) <= fechaini || Convert.ToDateTime(fechar) >= fechafin)
+            {
+                fechahabil = 1;
+                MessageBox.Show("Esta fecha se encuentra dentro de las vacaciones...");
+            }
+            else if (dateTimePicker1.Text.Contains("sábado"))
+            {
+                MessageBox.Show("Lo siento, los sábados no se abre el centro de cómputo");
+                fechahabil = 1;
             }
             else if (dateTimePicker1.Text.Contains("domingo"))
             {
-                MessageBox.Show("los domingos no hay clases prro");
+                MessageBox.Show("Lo siento, los domingos no se abre el centro de cómputo");
+                fechahabil = 1;
             }
-            String fechaC = obtener_fecha();
+            else
+            {
+                fechahabil = 0;
+            }
+
+
             pintar_pc(22);
             etFecha.Text = dateTimePicker1.Value.ToShortDateString();
 
@@ -452,25 +552,49 @@ namespace Sistema_cc
             etAMaterno.Text = "";
             etCarrera.Text = "";
             etFecha.Text = "";
+            pictureBox1.Image = null;
             comboBox1.Enabled = false;
+            encontradog = 0;
         }
 
         public int obtener_hora()
         {
-            horas = comboBox2.Text;
-            horas = horas.Remove(2);
-            horas = horas.Trim();
-            hora = Convert.ToInt32(horas);
-            return hora;
+            try
+            {
+                horas = comboBox2.Text;
+                horas = horas.Remove(2);
+                horas = horas.Trim();
+                hora = Convert.ToInt32(horas);
+                return hora;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Por favor, selecciona una hora");
+                return 0;
+            }
         }
 
         public int obtener_hora1()
         {
             horas = comboBox1.Text;
+            if (horas != "")
+            {
+                horas = horas.Remove(2);
+                horas = horas.Trim();
+                hora = Convert.ToInt32(horas);
+                return hora;
+            }
+            else
+            {
+                MessageBox.Show("Por favor, selecciona una hora");
+                return 0;
+            }
+
+           /* horas = comboBox1.Text;
             horas = horas.Remove(2);
             horas = horas.Trim();
             hora = Convert.ToInt32(horas);
-            return hora;
+            return hora;*/
         }
 
         public String obtener_fecha()
@@ -500,10 +624,10 @@ namespace Sistema_cc
                 obtener_numero_control(equipo);
 
 
-                DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("¿Desea finalizar hora?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo);
+                    DialogResult dialogResult1 = MessageBox.Show("¿Desea agregar un comentario?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dialogResult1 == DialogResult.Yes)
                     {
                         formFinalizar formFin = new formFinalizar(matriculaGlobal, fecha, hora);
@@ -518,19 +642,19 @@ namespace Sistema_cc
             {
                 obtener_numero_control(equipo);
 
-                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea cancelar la hora?", "Alerta", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea cancelar la hora?", "Alerta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
                     //MessageBox.Show("DELETE FROM scc_apartados WHERE fecha_apartado = '" + fecha + "' AND numhr = " + hora + "AND numequipo =" + equipo + ";");
                     cmd.CommandText = "DELETE FROM scc_apartados WHERE fecha_apartado = '" + fecha + "' AND numhr = " + hora + " AND numequipo =" + equipo + ";";
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("hora cancelada");
+                    MessageBox.Show("Hora cancelada");
                 }
 
             }
             else if (response == DialogResult.OK)
             {
-                MessageBox.Show("nel prro");
+                //MessageBox.Show("nel prro");
             }
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
@@ -646,6 +770,14 @@ namespace Sistema_cc
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Administrador ad = new Administrador();
+            //Application.Exit();
+            ad.Show();
+            this.Close();
+        }
+
+        private void salirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }

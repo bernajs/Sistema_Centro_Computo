@@ -123,6 +123,7 @@
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menúPrincipalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -390,6 +391,7 @@
             // pc16
             // 
             this.pc16.BackColor = System.Drawing.Color.White;
+            this.pc16.Enabled = false;
             this.pc16.Location = new System.Drawing.Point(839, 146);
             this.pc16.Name = "pc16";
             this.pc16.Size = new System.Drawing.Size(100, 50);
@@ -401,6 +403,7 @@
             // pc15
             // 
             this.pc15.BackColor = System.Drawing.Color.White;
+            this.pc15.Enabled = false;
             this.pc15.Location = new System.Drawing.Point(726, 146);
             this.pc15.Name = "pc15";
             this.pc15.Size = new System.Drawing.Size(100, 50);
@@ -412,6 +415,7 @@
             // pc14
             // 
             this.pc14.BackColor = System.Drawing.Color.White;
+            this.pc14.Enabled = false;
             this.pc14.Location = new System.Drawing.Point(608, 146);
             this.pc14.Name = "pc14";
             this.pc14.Size = new System.Drawing.Size(100, 50);
@@ -423,6 +427,7 @@
             // pc13
             // 
             this.pc13.BackColor = System.Drawing.Color.White;
+            this.pc13.Enabled = false;
             this.pc13.Location = new System.Drawing.Point(493, 146);
             this.pc13.Name = "pc13";
             this.pc13.Size = new System.Drawing.Size(100, 50);
@@ -492,6 +497,7 @@
             // pc12
             // 
             this.pc12.BackColor = System.Drawing.Color.White;
+            this.pc12.Enabled = false;
             this.pc12.Location = new System.Drawing.Point(375, 146);
             this.pc12.Name = "pc12";
             this.pc12.Size = new System.Drawing.Size(100, 50);
@@ -503,6 +509,7 @@
             // pc11
             // 
             this.pc11.BackColor = System.Drawing.Color.White;
+            this.pc11.Enabled = false;
             this.pc11.Location = new System.Drawing.Point(258, 146);
             this.pc11.Name = "pc11";
             this.pc11.Size = new System.Drawing.Size(100, 50);
@@ -514,6 +521,7 @@
             // pc10
             // 
             this.pc10.BackColor = System.Drawing.Color.White;
+            this.pc10.Enabled = false;
             this.pc10.Location = new System.Drawing.Point(140, 146);
             this.pc10.Name = "pc10";
             this.pc10.Size = new System.Drawing.Size(100, 50);
@@ -525,6 +533,7 @@
             // pc9
             // 
             this.pc9.BackColor = System.Drawing.Color.White;
+            this.pc9.Enabled = false;
             this.pc9.Location = new System.Drawing.Point(22, 146);
             this.pc9.Name = "pc9";
             this.pc9.Size = new System.Drawing.Size(100, 50);
@@ -536,6 +545,7 @@
             // pc8
             // 
             this.pc8.BackColor = System.Drawing.Color.White;
+            this.pc8.Enabled = false;
             this.pc8.Location = new System.Drawing.Point(839, 56);
             this.pc8.Name = "pc8";
             this.pc8.Size = new System.Drawing.Size(100, 50);
@@ -547,6 +557,7 @@
             // pc7
             // 
             this.pc7.BackColor = System.Drawing.Color.White;
+            this.pc7.Enabled = false;
             this.pc7.Location = new System.Drawing.Point(726, 56);
             this.pc7.Name = "pc7";
             this.pc7.Size = new System.Drawing.Size(100, 50);
@@ -616,6 +627,7 @@
             // pc6
             // 
             this.pc6.BackColor = System.Drawing.Color.White;
+            this.pc6.Enabled = false;
             this.pc6.Location = new System.Drawing.Point(608, 56);
             this.pc6.Name = "pc6";
             this.pc6.Size = new System.Drawing.Size(100, 50);
@@ -627,6 +639,7 @@
             // pc5
             // 
             this.pc5.BackColor = System.Drawing.Color.White;
+            this.pc5.Enabled = false;
             this.pc5.Location = new System.Drawing.Point(493, 56);
             this.pc5.Name = "pc5";
             this.pc5.Size = new System.Drawing.Size(100, 50);
@@ -638,6 +651,7 @@
             // pc4
             // 
             this.pc4.BackColor = System.Drawing.Color.White;
+            this.pc4.Enabled = false;
             this.pc4.Location = new System.Drawing.Point(375, 56);
             this.pc4.Name = "pc4";
             this.pc4.Size = new System.Drawing.Size(100, 50);
@@ -649,6 +663,7 @@
             // pc3
             // 
             this.pc3.BackColor = System.Drawing.Color.White;
+            this.pc3.Enabled = false;
             this.pc3.Location = new System.Drawing.Point(258, 56);
             this.pc3.Name = "pc3";
             this.pc3.Size = new System.Drawing.Size(100, 50);
@@ -660,6 +675,7 @@
             // pc2
             // 
             this.pc2.BackColor = System.Drawing.Color.White;
+            this.pc2.Enabled = false;
             this.pc2.Location = new System.Drawing.Point(140, 56);
             this.pc2.Name = "pc2";
             this.pc2.Size = new System.Drawing.Size(100, 50);
@@ -671,6 +687,7 @@
             // pc1
             // 
             this.pc1.BackColor = System.Drawing.Color.White;
+            this.pc1.Enabled = false;
             this.pc1.Location = new System.Drawing.Point(22, 56);
             this.pc1.Name = "pc1";
             this.pc1.Size = new System.Drawing.Size(100, 50);
@@ -1171,7 +1188,8 @@
             // 
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menúPrincipalToolStripMenuItem,
-            this.salirToolStripMenuItem});
+            this.salirToolStripMenuItem,
+            this.salirToolStripMenuItem1});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
@@ -1187,8 +1205,15 @@
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
+            this.salirToolStripMenuItem.Text = "Administrador";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
+            // 
+            // salirToolStripMenuItem1
+            // 
+            this.salirToolStripMenuItem1.Name = "salirToolStripMenuItem1";
+            this.salirToolStripMenuItem1.Size = new System.Drawing.Size(154, 22);
+            this.salirToolStripMenuItem1.Text = "Salir";
+            this.salirToolStripMenuItem1.Click += new System.EventHandler(this.salirToolStripMenuItem1_Click);
             // 
             // Apartado
             // 
@@ -1363,6 +1388,7 @@
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menúPrincipalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem1;
     }
 }
 
