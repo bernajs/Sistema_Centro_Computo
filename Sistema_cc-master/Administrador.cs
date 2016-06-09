@@ -25,7 +25,7 @@ namespace Sistema_cc
         String fechaini, fechafin, anioini, aniofin;
         String periodofinal, periodos;
         String[] pe;
-        int carreraIndex = -1, bandera = 0, periodo = 7;
+        int carreraIndex = -1, bandera = 0, periodo = 8;
 
         public void conexion()
         {
@@ -291,7 +291,7 @@ namespace Sistema_cc
             String fechaC = fechar[2] + "-" + fechar[1] + "-" + fechar[0];
             try
             {
-                numequipoinhabil = Convert.ToInt16(equipoinhabil);
+                numequipoinhabil = Convert.ToInt32(equipoinhabil);
                 if (numequipoinhabil > 9 && numequipoinhabil < 17)
                 {
                     cmd.CommandText = "UPDATE scc_equipos SET activo = 'F' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
@@ -300,7 +300,7 @@ namespace Sistema_cc
                 else if (numequipoinhabil < 9)
                 {
                     MessageBox.Show("UPDATE scc_equipos SET activo = 'F' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';");
-                    cmd.CommandText = "UPDATE scc_equipos SET activo = 'F' AND fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
+                    cmd.CommandText = "UPDATE scc_equipos SET activo = 'F', fecha ='" + fechaC + "' WHERE numequipo = 'E0" + numequipoinhabil.ToString() + "';";
                     cmd.ExecuteNonQuery();
                 }
                 etEquipo.Text = "";

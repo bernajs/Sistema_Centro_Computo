@@ -25,3 +25,5 @@ C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_c
 C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.application
 C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.CustomMsgBox.resources
 C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.Administrador.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.crearReporte.resources
+C:\Users\luisg\Downloads\Sistema_cc-master\Sistema_cc-master\obj\Debug\Sistema_cc.frmReportes.resources

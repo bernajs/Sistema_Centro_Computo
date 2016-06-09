@@ -155,6 +155,13 @@ namespace Sistema_cc
              this.Hide();
          }
 
+         private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+         {
+             crearReporte cr = new crearReporte();
+             cr.Show();
+             this.Hide();
+         }
+
     }
 }
 
